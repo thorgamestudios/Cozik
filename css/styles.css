@@ -11011,6 +11011,7 @@ header.masthead h1, header.masthead .h1 {
   .reveal {
     transition: none !important;
     transform: none !important;
+    opacity: 1 !important;
   }
 }
 

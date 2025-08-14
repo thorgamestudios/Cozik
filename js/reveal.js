@@ -36,24 +36,22 @@
       });
     }, 500);
 
-    // IO pro zbytek stránky (zobrazit jednou, jakmile vstoupí do viewportu)
-    const observer = 'IntersectionObserver' in window
-      ? new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              const el = entry.target;
-              el.classList.add('visible');
-              observer.unobserve(el);
-            }
-          });
-        }, {
-          root: null,
-          threshold: 0.25,
-          rootMargin: '0px 0px -10% 0px'
-        })
-      : null;
+    // IO pro zbytek stránky (zobrazit pokaždé, když vstoupí do/odejde z viewportu)
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.25,
+        rootMargin: '0px 0px -10% 0px'
+      });
 
-    if (observer) {
       // nepozoruj hero prvky (ty už řešíme výše)
       const toObserve = candidates.filter(el => !hero || !hero.contains(el));
       toObserve.forEach(el => observer.observe(el));
