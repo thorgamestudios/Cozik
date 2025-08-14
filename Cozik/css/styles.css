@@ -10994,3 +10994,23 @@ header.masthead h1, header.masthead .h1 {
   opacity: 1;
 }
 
+/* Základ pro odhalování */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Bez animací pro uživatele s omezením pohybu */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
